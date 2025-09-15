@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>자동 요약 카드 미리보기</title>
+
+  <!-- CSS 불러오기 -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Material Icons (더보기 버튼 아이콘용) -->
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <!-- 디버깅 정보 표시 -->
+  <div id="debug-info" style="background:#f0f0f0; padding:10px; margin:10px; border-radius:5px; font-size:12px; color:#666;">
+    <strong>확장프로그램 테스트 환경</strong><br>
+    <span id="connection-status">백엔드 연결 상태: 확인 중...</span><br>
+    <span id="data-status">데이터 로드 상태: 대기 중...</span>
+  </div>
+
+  <!-- 카드 전체 영역 -->
+  <aside class="card news-sum-card">
+    <!-- 탭 버튼 -->
+    <div class="tabs">
+      <button class="tab active" data-target="basic">자동 요약</button>
+      <button class="tab"        data-target="detail">분석 상세보기</button>
+    </div>
+
+    <!-- 1. Basic 탭 내용 -->
+    <div class="tab-content basic-content" style="display: block;">
+      <h3 class="list-title">최근에 요약된 글</h3>
+      <ul class="list basic" id="basic-list">
+        <li style="color:#999; font-style:italic;">데이터를 불러오는 중...</li>
+      </ul>
+    </div>
+
+    <!-- 2. Detail 탭 내용 -->
+    <div class="tab-content detail-content" style="display: none;">
+      <h3 class="list-title">최근에 분석된 글</h3>
+      <ul class="list detail" id="detail-list">
+        <li style="color:#999; font-style:italic;">데이터를 불러오는 중...</li>
+      </ul>
+    </div>
+
+    <!-- 하단 컨트롤 (활성화 토글, 더보기 버튼) -->
+    <div class="bottom">
+      <label>
+        <input type="checkbox" id="extension-toggle" checked /> 
+        <span id="toggle-text">활성화</span>
+      </label>
+      <button class="more">
+        <span class="material-icons">more_vert</span>
+      </button>
+      
+      <!-- 더보기 메뉴 -->
+      <div class="menu" style="display: none;">
+        <div class="menu-item" id="refresh-data">데이터 새로고침</div>
+        <div class="menu-item" id="open-settings">설정</div>
+        <div class="menu-item" id="open-help">도움말</div>
+      </div>
+    </div>
+
+    <!-- Detail 팝업 템플릿 -->
+    <template id="detail-tmpl">
+      <div class="detail-box">
+        <input id="d-title" placeholder="본문에 따른 진짜 제목" readonly />
+        <textarea id="d-summary" placeholder="본문에 대한 글의 요약" readonly></textarea>
+        <div class="d-foot">
+          유사도 점수: <span id="d-score">N/A</span>
+          <span class="material-icons bookmark-icon">bookmark_border</span>
+          <button id="d-close" class="material-icons">close</button>
+        </div>
+      </div>
+    </template>
+  </aside>
+
+  <!-- JS 불러오기 -->
+  <script src="app/app.js" defer></script>
+  <!-- JS 불러오기 (app 폴더 아래 파일들) -->
+  <script src="app/app.js" defer></script>
+  <script>
+    // index.html이 로드된 뒤 초기 렌더 호출
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof renderBasicList === 'function') renderBasicList();
+      if (typeof bindDetailClick   === 'function') bindDetailClick();
+    });
+  </script>
+</body>
+</html>

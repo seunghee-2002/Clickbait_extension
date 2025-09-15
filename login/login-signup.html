@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>로그인 / 회원가입</title>
+
+  <!-- 스타일 -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/login-signup.css" />
+</head>
+
+<body class="login-page">
+
+  <!-- ▼ 좌·우 두 칼럼 래퍼 (꼭 wrapper-flex, 오타주의) -->
+  <div class="wrapper-flex">
+
+    <!-- ── 로그인 카드 ── -->
+    <section class="login-card" id="card-signin">
+      <h2>Log in</h2>
+      <form id="login-form" class="wrapper-box">
+        <input type="email"    name="email"    placeholder="아이디(이메일)" required>
+        <input type="password" name="password" placeholder="비밀번호"       required>
+        <p id="login-error" class="err"></p>
+        <button type="submit" class="btn-submit">로그인</button>
+      </form>
+    </section>
+
+    <!-- ── 회원가입 안내 패널 ── -->
+    <aside class="switch-panel" id="switch-signin">
+      <h3>계정이 없으신가요?</h3>
+      <button id="btn-show-signup">회원가입</button>
+    </aside>
+
+    <!-- ── 회원가입 카드(초기 숨김) ── -->
+    <section class="login-card ng-hide" id="card-signup">
+      <h2>Sign up</h2>
+      <form id="signup-form" class="wrapper-box">
+        <input type="text"     name="username" placeholder="이름"            required>
+        <input type="email"    name="email"    placeholder="아이디(이메일)" required>
+        <input type="password" name="password" placeholder="비밀번호"        required>
+        <input type="tel"      name="phone"    placeholder="전화번호 (선택)">
+        <label class="checkbox-agree">
+          <input type="checkbox" name="agree" required> 개인정보 수집 및 활용 동의
+        </label>
+        <p id="signup-error" class="err"></p>
+        <button type="submit" class="btn-submit">회원가입</button>
+      </form>
+    </section>
+
+    <!-- ── 로그인 안내 패널(초기 숨김) ── -->
+    <aside class="switch-panel ng-hide" id="switch-signup">
+      <h3>이미 계정이 있으신가요?</h3>
+      <button id="btn-show-login">로그인</button>
+    </aside>
+
+  </div>
+
+  <!-- 기능 JS -->
+  <script src="app/login.js"  defer></script>
+  <script src="app/signup.js" defer></script>
+
+  <!-- 좌·우 전환 JS -->
+  <script>
+    const signinCard   = document.getElementById('card-signin');
+    const signupCard   = document.getElementById('card-signup');
+    const switchSignin = document.getElementById('switch-signin');
+    const switchSignup = document.getElementById('switch-signup');
+
+    document.getElementById('btn-show-signup').onclick = () => {
+      signinCard.classList.add('ng-hide');   switchSignin.classList.add('ng-hide');
+      signupCard.classList.remove('ng-hide');switchSignup.classList.remove('ng-hide');
+    };
+    document.getElementById('btn-show-login').onclick = () => {
+      signupCard.classList.add('ng-hide');   switchSignup.classList.add('ng-hide');
+      signinCard.classList.remove('ng-hide');switchSignin.classList.remove('ng-hide');
+    };
+  </script>
+</body>
+</html>

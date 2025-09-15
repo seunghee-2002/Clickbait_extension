@@ -1,0 +1,13 @@
+/* ---------- reset & 공통 변수 ---------- */
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif}
+a{color:inherit;text-decoration:none}
+button{background:none;border:0;cursor:pointer}
+:root{
+  --card-w:240px;
+  --border:#e0e0e0;
+  --primary:#1f5eff;
+  --bg:#fafafa;
+  --text:#333;
+  --danger:#ff5e5e;
+}

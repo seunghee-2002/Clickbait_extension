@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News Crawler</title>
+  <link rel="stylesheet" href="css/popup.css">
+</head>
+<body>
+  <div class="header">
+    <h1>🔍 News Crawler</h1>
+    <p class="subtitle">낚시성 기사 자동 탐지 시스템</p>
+  </div>
+  
+  <div class="content">
+    <!-- 로그인 전 화면 -->
+    <div id="logged-out-view">
+      <div class="login-section">
+        <div class="icon">👤</div>
+        <h3>로그인이 필요합니다</h3>
+        <p>뉴스 분석 기록과 북마크를<br>확인하려면 로그인하세요</p>
+        <button class="btn btn-primary" id="login-btn">로그인</button>
+      </div>
+      
+      <div class="menu-section">
+        <div class="menu-item" id="refresh-btn">
+          <div class="icon">🔄</div>
+          <div class="text">
+            <div class="title">데이터 새로고침</div>
+            <div class="desc">분석 데이터 업데이트</div>
+          </div>
+          <div class="arrow">›</div>
+        </div>
+      </div>
+      
+      <div class="usage-section">
+        <h4>💡 사용법</h4>
+        <div class="usage-step">
+          <div class="step-number">1</div>
+          <div class="step-text">네이버 뉴스 기사 페이지를 방문하세요</div>
+        </div>
+        <div class="usage-step">
+          <div class="step-number">2</div>
+          <div class="step-text">우측에 나타나는 분석 카드를 확인하세요</div>
+        </div>
+        <div class="usage-step">
+          <div class="step-number">3</div>
+          <div class="step-text">기사 제목과 본문의 일치도를 확인하세요</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 로그인 후 화면 -->
+    <div id="logged-in-view" class="hidden">
+      <div class="user-info">
+        <div class="user-avatar" id="user-avatar">U</div>
+        <div class="user-details">
+          <h4 id="user-name">사용자</h4>
+          <p id="user-email">user@example.com</p>
+        </div>
+      </div>
+      
+      <div class="stats-section">
+        <h4>📊 분석 통계</h4>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-value" id="analyzed-count">0</div>
+            <div class="stat-label">분석한 기사</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="bookmark-count">0</div>
+            <div class="stat-label">북마크</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="menu-section">
+        <div class="menu-item" id="bookmarks-btn">
+          <div class="icon">⭐</div>
+          <div class="text">
+            <div class="title">북마크한 글</div>
+            <div class="desc">저장한 기사 목록 보기</div>
+          </div>
+          <div class="arrow">›</div>
+        </div>
+        
+        <div class="menu-item" id="analyze-btn">
+          <div class="icon">🔍</div>
+          <div class="text">
+            <div class="title">링크 분석하기</div>
+            <div class="desc">URL을 입력해서 분석</div>
+          </div>
+          <div class="arrow">›</div>
+        </div>
+        
+        <div class="menu-item" id="refresh-logged-btn">
+          <div class="icon">🔄</div>
+          <div class="text">
+            <div class="title">데이터 새로고침</div>
+            <div class="desc">최신 분석 결과 업데이트</div>
+          </div>
+          <div class="arrow">›</div>
+        </div>
+        
+        <div class="menu-item" id="settings-btn">
+          <div class="icon">⚙️</div>
+          <div class="text">
+            <div class="title">설정</div>
+            <div class="desc">확장프로그램 설정</div>
+          </div>
+          <div class="arrow">›</div>
+        </div>
+      </div>
+      
+      <button class="btn btn-secondary" id="logout-btn">로그아웃</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

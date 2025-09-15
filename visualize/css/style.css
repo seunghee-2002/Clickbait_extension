@@ -1,0 +1,244 @@
+/* ========= 기본 리셋 & 변수 ========= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+}
+:root {
+  --primary: #0d47a1;   /* 탭 남색 */
+  --border: #dadce0;
+  --card-w: 260px;      /* 카드와 팝업 동일 폭 */
+  --radius: 10px;
+}
+body {
+  color: #303030;
+  line-height: 1.6;
+}
+
+/* ========= 레이아웃 ========= */
+.article-wrap {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  gap: 24px;
+}
+.news-body {
+  flex: 1;
+}
+#article-body p {
+  margin: 8px 0;
+}
+
+/* ========= 카드 기본 스타일 ========= */
+.card {
+  width: var(--card-w);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* 카드 내용을 기준으로 팝업이 위치하기 위해 상대 위치 지정 */
+  position: relative;
+}
+
+/* 탭 */
+.tabs {
+  font-size: 1.2rem;
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+.tab {
+  flex: 1;
+  padding: 6px 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  text-align: center;
+}
+.tab.active {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
+
+/* 탭 콘텐츠: 스크롤 영역 지정 */
+.basic-content,
+.detail-content {
+  /* 탭 전환 시 내부 콘텐츠가 차지할 최대 높이 */
+  max-height: 240px;
+  overflow-y: auto;
+  display: none;           /* 기본적으로 숨김, JS로 display:block 제어 */
+}
+.basic-content {
+  display: block;          /* 초기 로드 시 자동 요약(기본) 탭을 보이도록 */
+}
+
+/* 리스트 ▶ */
+.list {
+  list-style: none;
+  padding-left: 0;
+  line-height: 1.5;
+}
+.list li {
+  position: relative;
+  padding-left: 16px;
+  cursor: pointer;
+}
+.list li::before {
+  content: "\25B6";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-size: 0.65rem;
+  color: var(--primary);
+}
+.list li:hover {
+  text-decoration: underline;
+}
+.list a {
+  color: inherit;
+  text-decoration: none;
+}
+.list a:hover {
+  text-decoration: underline;
+}
+
+/* 탭 콘텐츠 내부 제목 */
+.list-title {
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* 하단 */
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  margin-top: auto;
+}
+.more {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #666;
+}
+
+/* ========= 상세보기 탭(detail-box) ========= */
+.detail-box {
+  width: var(--card-w);                /* 카드 폭 그대로 */
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  /* 카드 내부 절대 위치 지정 */
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 12px;
+}
+
+/* 팝업 입력 박스 */
+.detail-box input {
+  border: none;
+  background: #f7f7f7;
+  border-radius: 25px;
+  padding: 8px 14px;
+  font-weight: 600;
+  text-align: center;
+}
+.detail-box textarea {
+  height: 120px;
+  resize: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px;
+  background: #fff;
+}
+.d-foot {
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.d-foot button {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+}
+
+/* ========== 유사도 점수 박스 스타일 ========== */
+#d-score {
+  display: inline-block;
+  margin-left: 2px;
+  min-width: 110px;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: #fafafa;
+  text-align: center;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+/* ========= 카드 전체를 화면 우측에 고정 ========= */
+.news-sum-card {
+  position: fixed;      /* 화면에 고정 */
+  top: 80px;            /* 화면 상단에서 20px 아래 */
+  right: 20px;          /* 화면 우측에서 20px 안쪽 */
+  width: var(--card-w);
+  z-index: 1000;        /* 다른 요소 위에 표시되도록 */
+}
+/* ========= 북마크 아이콘 ========= */
+.bookmark-icon {
+  font-size: 1.1rem;
+  margin-left: 6px;
+  vertical-align: middle;
+  cursor: pointer;
+  color: var(--primary);
+}
+.bookmark-icon:hover {
+  color: #000;
+}
+/* ========= ⋮ 버튼 아래 메뉴 스타일 ========= */
+.news-sum-card .bottom {
+  position: relative; 
+}
+.news-sum-card .menu {
+  position: absolute;
+  top: -4px;          /* more 버튼 상단에서 살짝 띄워서 겹치게 */
+  right: 36px;        /* more 버튼의 가로 위치에 맞추도록 조정 (버튼 너비에 따라 값 변경 가능) */
+  width: 120px;       /* 메뉴 너비 */
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 2000;
+}
+
+/* 메뉴 아이템 */
+.news-sum-card .menu-item {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #333;
+}
+.news-sum-card .menu-item:hover {
+  background: #f0f0f0;
+}

@@ -1,0 +1,258 @@
+:root {
+  --green: #0d47a1;
+  --red: #EF6161;
+}
+
+/* ───────── 전체 배경 ───────── */
+.login-page {
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  background:#fff;
+}
+
+/* ───────── 로그인·회원가입 카드 ───────── */
+.login-page .login-content{
+  width:420px;
+  padding:40px;
+  height:500px;
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  background:#fff;
+  box-shadow:0 0 70px rgba(0,0,0,.1);
+  border:1px solid var(--border);
+  border-top:5px solid var(--green);
+  border-radius:16px;
+  z-index:1;
+  transition:.2s ease-out .2s;
+  float:left;
+}
+
+/* ng-hide 애니메이션 */
+.login-page .login-content.login-content-signin.ng-hide:not(.ng-hide-animate),
+.login-page .login-content.login-content-signup.ng-hide:not(.ng-hide-animate){
+  transition-delay:0s;
+  display:block!important;
+  opacity:0;
+  z-index:-1;
+}
+.login-page .login-content.login-content-signin.ng-hide:not(.ng-hide-animate){
+  transform:translate(-45%,-50%);
+}
+.login-page .login-content.login-content-signup.ng-hide:not(.ng-hide-animate){
+  transform:translate(-55%,-50%);
+}
+
+/* 내부 제목·폼 스타일 */
+.login-page .login-content h2{
+  margin:0;
+  font-size:18px;
+  font-weight:bold;
+  color:var(--green);
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.login-page .login-content form.wrapper-box{margin-top:40px;}
+.login-page .login-content form.wrapper-box input{
+  margin-top:20px; border:none;
+  border-bottom:1px solid rgba(0,0,0,.1);
+  width:100%; box-shadow:none; padding-left:0;
+  transition:.1s ease-out;
+}
+.login-page .login-content form.wrapper-box input:valid        {border-bottom:1px solid var(--green);}
+.login-page .login-content form.wrapper-box input:focus:invalid{border-bottom:1px solid var(--red);}
+.login-page .login-content form.wrapper-box ::placeholder{color:rgba(0,0,0,.5);}
+.login-page .login-content form.wrapper-box button{
+  margin-top:50px; padding:3px 12px 5px;
+  border:2px solid var(--green); border-radius:25px;
+  background:var(--green); color:#fff; font-size:14px; font-weight:bold;
+  transition:.1s ease-out;
+}
+.login-page .login-content form.wrapper-box button:hover{
+  background:#fff; color:var(--green); border:2px solid var(--green);
+}
+
+/* 가입/로그인 전환용 링크(안 쓰는 경우에도 유지) */
+.login-page .login-content .outer-link{
+  display:block; margin-top:50px; padding:5px 0;
+  color:rgba(0,0,0,.4); font-size:.85rem; transition:.1s;
+}
+.login-page .login-content .outer-link:hover{
+  color:rgba(0,0,0,.8); text-decoration:none; transition:0s;
+}
+
+/* 카드 좌·우 오프셋 */
+.login-page .login-content.login-content-signin {margin-left:-130px;}
+.login-page .login-content.login-content-signup {margin-left: 130px;}
+
+/* ───────── 전환 패널 ───────── */
+.login-page .login-switcher{
+  position:absolute;
+  top:0; right:0; bottom:0; left:0;
+  margin:auto;
+  width:660px; height:400px;
+  box-shadow:0 0 20px rgba(0,0,0,.03);
+  z-index:0;               /* 카드보다 아래 */
+  pointer-events:none;     /* 입력 가리지 않음 */
+}
+.login-page .login-switcher>div{
+  width:40%;
+  margin-top:125px;
+  position:relative;
+  z-index:5;               /* 버튼 클릭 가능 */
+}
+.login-page .login-switcher .login-switcher-signin {float:right;}
+.login-page .login-switcher .login-switcher-signup{float:left;}
+
+.login-page .login-switcher>div h3{
+  color:rgba(0,0,0,.4); text-align:center; font-size:14px;
+}
+.login-page .login-switcher>div button{
+  margin:20px auto 0; padding:4px 12px 5px;
+  background:none; border:2px solid rgba(0,0,0,.1);
+  border-radius:20px; color:rgba(0,0,0,.3); font-weight:bold; font-size:14px;
+  cursor:pointer; transition:.1s;
+  pointer-events:auto;   /* 버튼만 클릭 허용 */
+}
+.login-page .login-switcher>div button:hover{
+  border:2px solid var(--green)!important; color:rgba(0,0,0,.8);
+}
+
+/* 전환 패널 ng-hide 애니메이션 */
+.login-page .login-switcher .login-switcher-signin,
+.login-page .login-switcher .login-switcher-signup{
+  transition:.1s ease-out;
+}
+.login-page .login-switcher .login-switcher-signin.ng-hide:not(.ng-hide-animate),
+.login-page .login-switcher .login-switcher-signup.ng-hide:not(.ng-hide-animate){
+  display:block!important; opacity:0; transform:translateY(10px);
+}
+
+/* 체크박스 동의 */
+.checkbox-agree{margin-top:20px;font-size:.9rem;color:#333;}
+.checkbox-agree input[type="checkbox"]{margin-right:6px;transform:scale(1.2);}
+
+/* ── 좌·우 두 칼럼 배치 (최종) ───────────────────── */
+/* ─── flex 2-컬럼 배치 ─── */
+.wrapper-flex{
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  display:flex;
+  gap:60px;
+  align-items:center;
+}
+
+/* 흰 카드 */
+.login-card{
+  width:420px; padding:40px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-top:5px solid var(--green);
+  border-radius:16px;
+  box-shadow:0 0 70px rgba(0,0,0,.1);
+}
+
+/* 회색 안내 패널 */
+.switch-panel{
+  width:260px; padding:60px 24px;
+  background:#fafafa;
+  border-radius:16px;
+  box-shadow:0 0 20px rgba(0,0,0,.03);
+  text-align:center;
+  color:rgba(0,0,0,.6);
+}
+.switch-panel button{
+  margin-top:20px; padding:6px 24px;
+  background:#fff; border:2px solid var(--green);
+  border-radius:20px; color:var(--green);
+  font-weight:bold; cursor:pointer; transition:.15s;
+}
+.switch-panel button:hover{background:var(--green);color:#fff}
+
+/* 숨김 */
+.ng-hide{display:none!important}
+
+/* 에러 메시지 */
+.err{color:#d32f2f;font-size:.9rem}
+
+/* 카드 안쪽 로그인 / 회원가입 제출 버튼 색 교정 */
+/* ── 카드 크기 & 내부 여백 확대 ──────────────────────────── */
+.login-card{
+  width:630px !important;     /* 기존 420px → 1.5배 */
+  padding:60px 48px !important;
+}
+
+/* ── 로그인·회원가입 제출 버튼 : 남색 + 타원형 ───────────── */
+.login-card .btn-submit{
+  background:#0d47a1 !important;
+  border:2px solid #0d47a1 !important;
+  color:#fff !important;
+  border-radius:9999px !important;  /* 완전 타원형 */
+  padding:5px 10px !important;     /* 여백 넉넉히 */
+  margin-top: 10px;
+}
+.login-card .btn-submit:hover{
+  background:#fff !important;
+  color:#0d47a1 !important;
+}
+
+/* ── 입력칸 위아래 간격 늘리기 ─────────────────────────── */
+.login-card .wrapper-box input{ margin-top:18px !important; }
+
+/* ── 회색 패널 버튼(회원가입/로그인 전환) 동일 스타일 ── */
+.switch-panel button{
+  background:#0d47a1 !important;
+  border:2px solid #0d47a1 !important;
+  color:#fff !important;
+  border-radius:9999px !important;
+  padding:5px 10px !important;
+}
+.switch-panel button:hover{
+  background:#fff !important;
+  color:#0d47a1 !important;
+}
+.login-card .wrapper-box{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);   /* 좌우 2칸 */
+  gap:14px 20px;                         /* 행·열 간격 */
+}
+ /* ── 카드 안 로그인·회원가입 버튼을 왼쪽 정렬 ───────────── */
+.login-card .btn-submit{
+  grid-column:1 / 2 !important;  /* 1번 칸만 사용 */
+  justify-self:start;            /* 왼쪽 붙이기 */
+  width:auto !important;         /* 가로폭 내용 기반 */
+  padding:10px 40px;             /* 여백 그대로 유지 */
+}
+/* 메인 대시보드 전송 버튼 타원형 남색 */
+#send-url,
+#analyze-btn{
+  background:#0d47a1;
+  border:2px solid #0d47a1;
+  color:#fff;
+  border-radius:9999px;       /* 완전 둥글 */
+  padding:5px 20px;
+  font-weight:bold;
+  cursor:pointer;
+}
+/* 텍스트 트리거 (버튼 아님) */
+.url-trigger{
+  display:inline-block;
+  margin:24px 0;
+  color:#0d47a1;
+  font-weight:700;
+  font-size:1rem;
+  cursor:pointer;
+  text-decoration:none;
+  border:none;
+  background:none;
+  padding:0;
+}
+.url-trigger:hover{
+  text-decoration:underline;
+}
+
+
