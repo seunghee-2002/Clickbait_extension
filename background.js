@@ -1,5 +1,5 @@
 // background.js
-const SERVER_URL = 'http://127.0.0.1:3000';
+const SERVER_URL = 'http://localhost:8080';
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.action === 'extractArticle') {
