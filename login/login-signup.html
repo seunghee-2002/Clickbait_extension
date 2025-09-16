@@ -57,24 +57,8 @@
   </div>
 
   <!-- 기능 JS -->
-  <script src="app/login.js"  defer></script>
+  <script src="app/ui-toggle.js" defer></script>
+  <script src="app/login.js" defer></script>
   <script src="app/signup.js" defer></script>
-
-  <!-- 좌·우 전환 JS -->
-  <script>
-    const signinCard   = document.getElementById('card-signin');
-    const signupCard   = document.getElementById('card-signup');
-    const switchSignin = document.getElementById('switch-signin');
-    const switchSignup = document.getElementById('switch-signup');
-
-    document.getElementById('btn-show-signup').onclick = () => {
-      signinCard.classList.add('ng-hide');   switchSignin.classList.add('ng-hide');
-      signupCard.classList.remove('ng-hide');switchSignup.classList.remove('ng-hide');
-    };
-    document.getElementById('btn-show-login').onclick = () => {
-      signupCard.classList.add('ng-hide');   switchSignup.classList.add('ng-hide');
-      signinCard.classList.remove('ng-hide');switchSignin.classList.remove('ng-hide');
-    };
-  </script>
 </body>
 </html>

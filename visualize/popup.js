@@ -63,6 +63,7 @@ function setupEventListeners() {
 
   // 새로고침 버튼 (로그인 전)
   document.getElementById('refresh-btn').addEventListener('click', () => {
+    alert('새로고침되었습니다!');
     refreshExtensionData();
   });
 
