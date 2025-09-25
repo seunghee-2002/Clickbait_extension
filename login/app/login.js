@@ -39,19 +39,23 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error(result.message || `서버 오류 (${response.status})`);
       }
 
-      // 6) 성공 시 토큰 및 사용자 정보 저장
-      if (result.token) {
-        localStorage.setItem('token', result.token);
-        localStorage.setItem('username', result.username || '');
-        localStorage.setItem('email', loginRequest.email);
-        
-        console.log('로그인 성공:', result);
-        
-        // 7) 메인 대시보드로 이동
-        window.location.href = 'index.html';
-      } else {
-        throw new Error('토큰이 반환되지 않았습니다.');
-      }
+      // 6) 성공 시 사용자 정보 저장
+      // if (result.token) {
+      //   localStorage.setItem('token', result.token);
+      //   localStorage.setItem('username', result.username || '');
+      //   localStorage.setItem('email', loginRequest.email);
+      // } else {
+      //   throw new Error('토큰이 반환되지 않았습니다.');
+      // }
+      
+      // 임시: 토큰 없이 사용자 정보만 저장
+      localStorage.setItem('username', result.username || loginRequest.email);
+      localStorage.setItem('email', loginRequest.email);
+      
+      console.log('로그인 성공:', result);
+      
+      // 7) 메인 대시보드로 이동
+      window.location.href = 'index.html';
 
     } catch (err) {
       console.error('로그인 실패:', err);
@@ -63,27 +67,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 9) 이미 로그인된 경우 메인으로 리다이렉트
-  const token = localStorage.getItem('token');
-  if (token) {
-    // 토큰 유효성 간단 체크 (만료 시간 등)
-    try {
-      // JWT 토큰이라면 만료 시간 체크 가능
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const currentTime = Math.floor(Date.now() / 1000);
-      
-      if (payload.exp && payload.exp > currentTime) {
-        // 토큰이 아직 유효하면 메인으로
-        window.location.href = 'index.html';
-      } else {
-        // 만료된 토큰 제거
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        localStorage.removeItem('email');
-      }
-    } catch (e) {
-      // 토큰 파싱 실패 시 제거
-      localStorage.removeItem('token');
-    }
+  // 9) 이미 로그인된 경우 메인으로 리다이렉트 
+  // const token = localStorage.getItem('token');
+  // if (token) {
+  //   try {
+  //     // JWT 토큰이라면 만료 시간 체크 가능
+  //     const payload = JSON.parse(atob(token.split('.')[1]));
+  //     const currentTime = Math.floor(Date.now() / 1000);
+  //     
+  //     if (payload.exp && payload.exp > currentTime) {
+  //       // 토큰이 아직 유효하면 메인으로
+  //       window.location.href = 'index.html';
+  //     } else {
+  //       // 만료된 토큰 제거
+  //       localStorage.removeItem('token');
+  //       localStorage.removeItem('username');
+  //       localStorage.removeItem('email');
+  //     }
+  //   } catch (e) {
+  //     // 토큰 파싱 실패 시 제거
+  //     localStorage.removeItem('token');
+  //   }
+  // }
+  
+  // 임시: 사용자명이 있으면 로그인된 것으로 간주
+  const username = localStorage.getItem('username');
+  if (username) {
+    window.location.href = 'index.html';
   }
 });

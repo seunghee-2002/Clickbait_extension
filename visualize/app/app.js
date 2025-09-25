@@ -1,17 +1,17 @@
-// extension/visualize/app/app.js - 확장프로그램용 개선된 통신 로직
+// extension/visualize/app/app.js - 확장프로그램용 통신 로직
 
 /******************* API 통신 헬퍼 함수 *******************/
 const API_BASE_URL = 'http://localhost:8080/api';
 
 // 공통 fetch 요청 함수
 async function apiRequest(endpoint, options = {}) {
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
   
   const defaultOptions = {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      ...(token && { 'Authorization': `Bearer ${token}` })
+      // ...(token && { 'Authorization': `Bearer ${token}` })
     }
   };
 
@@ -28,11 +28,11 @@ async function apiRequest(endpoint, options = {}) {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
     
     if (!response.ok) {
-      if (response.status === 401) {
-        // 인증 실패 시 토큰 제거
-        localStorage.removeItem('token');
-        throw new Error('인증이 만료되었습니다.');
-      }
+      // if (response.status === 401) {
+      //   // 인증 실패 시 토큰 제거
+      //   localStorage.removeItem('token');
+      //   throw new Error('인증이 만료되었습니다.');
+      // }
       const errorData = await response.json().catch(() => ({}));
       throw new Error(errorData.message || `서버 오류 (${response.status})`);
     }
@@ -312,10 +312,15 @@ function bindMoreButton() {
 document.addEventListener('DOMContentLoaded', () => {
   console.log('확장프로그램 초기화 시작');
   
-  // 토큰 체크 (확장프로그램에서는 선택사항)
-  const token = localStorage.getItem('token');
-  if (!token) {
-    console.warn('인증 토큰이 없습니다. 일부 기능이 제한될 수 있습니다.');
+  // const token = localStorage.getItem('token');
+  // if (!token) {
+  //   console.warn('인증 토큰이 없습니다. 일부 기능이 제한될 수 있습니다.');
+  // }
+  
+  // 사용자명으로 로그인 상태 체크 (토큰 대신)
+  const username = localStorage.getItem('username');
+  if (!username) {
+    console.warn('로그인 정보가 없습니다. 일부 기능이 제한될 수 있습니다.');
   }
   
   // 이벤트 바인딩

@@ -11,13 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ===== 로그인 상태 확인 =====
 function checkLoginStatus() {
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
   const username = localStorage.getItem('username');
   const email = localStorage.getItem('email');
 
-  if (token && username) {
+  if (username) {  // 토큰 대신 사용자명으로 로그인 확인
     isLoggedIn = true;
-    userData = { token, username, email };
+    userData = { username, email };  // 토큰 제거
     showLoggedInView();
     loadUserStats();
   } else {
@@ -55,7 +55,7 @@ function loadUserStats() {
 
 // ===== 이벤트 리스너 설정 =====
 function setupEventListeners() {
-  // 로그인 버튼 (확장프로그램 내부 파일 사용)
+  // 로그인 버튼
   document.getElementById('login-btn').addEventListener('click', () => {
     chrome.tabs.create({ url: chrome.runtime.getURL('login/login-signup.html') });
     addLog('로그인 페이지를 열었습니다.');
@@ -138,7 +138,7 @@ function showSettings() {
 // ===== 로그아웃 =====
 function logout() {
   if (confirm('정말 로그아웃하시겠습니까?')) {
-    localStorage.removeItem('token');
+    // localStorage.removeItem('token');
     localStorage.removeItem('username');
     localStorage.removeItem('email');
     
@@ -167,7 +167,7 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
 
 // ===== 주기적 상태 확인 =====
 setInterval(() => {
-  const currentLoginStatus = !!localStorage.getItem('token');
+  const currentLoginStatus = !!localStorage.getItem('username');  // 토큰 대신 사용자명 체크
   if (currentLoginStatus !== isLoggedIn) {
     checkLoginStatus();
   }
